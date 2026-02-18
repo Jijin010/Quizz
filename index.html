@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Welcome to My Quiz 💕</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  text-align:center;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  padding:20px;
+  overflow-x:hidden;
+  position:relative;
+}
+
+.section{display:none;animation: fade 0.6s ease;}
+.active{display:block;}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+input, textarea{
+  padding:10px;
+  margin:10px;
+  width:80%;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  margin:5px;
+}
+
+button:hover{background:#e6004c;}
+
+.shake{animation: shake 0.4s;}
+
+@keyframes shake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-10px);}
+  50%{transform:translateX(10px);}
+  75%{transform:translateX(-10px);}
+  100%{transform:translateX(0);}
+}
+
+img{max-width:250px;margin:10px;}
+
+/* Heart Rain */
+.heart{
+  position:fixed;
+  top:-10px;
+  color:red;
+  font-size:20px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall{
+  to{transform:translateY(100vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<form id="loveForm" action="https://formsubmit.co/jijinvs001@gmail.com" method="POST">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Fun Love Quiz Response ❤️">
+
+<div class="section active" id="step1">
+<h1>Welcome to my quiz page 💕</h1>
+<button type="button" onclick="next(2)">Click here to start</button>
+</div>
+
+<div class="section" id="step2">
+<p>Answer the questions correctly with the correct spelling and date to move to the next question. Entering incorrect answers will result in punishment 😌</p>
+<button type="button" onclick="next(3)">I Understand 😌</button>
+</div>
+
+<div class="section" id="step3">
+<h3>What is the name of the boy that is obsessed with you?</h3>
+<input type="text" id="name">
+<div id="res1"></div>
+<button type="button" onclick="checkName()">Submit</button>
+</div>
+
+<div class="section" id="step4">
+<h3>Enter the birthday date of that boy</h3>
+<input type="date" id="bday">
+<div id="res2"></div>
+<button type="button" onclick="checkBday()">Submit</button>
+</div>
+
+<div class="section" id="step5">
+<img src="achu.png">
+<h3>Where did we capture this image?</h3>
+<input type="text" id="place">
+<div id="res3"></div>
+
+<div id="dateSection" style="display:none;">
+<h3>Now enter the date of our first date we went?</h3>
+<input type="date" id="firstdate">
+<div id="resDate"></div>
+<button type="button" onclick="checkFirstDate()">Submit Date</button>
+</div>
+
+<button type="button" onclick="checkPlace()">Submit</button>
+</div>
+
+<div class="section" id="step6">
+<h3>What is the one thing I did that made you so happy and impressed?</h3>
+<textarea name="HappyThing" required></textarea>
+<br>
+<img src="noted.gif">
+<br>
+<button type="button" onclick="alert('mooditu answer pannu enga oodura')">Skip 😏</button>
+<button type="button" onclick="next(7)">Next</button>
+</div>
+
+<div class="section" id="step7">
+<h3>Do you really love me?</h3>
+<button type="button" onclick="yesLove()">Yes</button>
+<button type="button" onclick="noLove()">No</button>
+
+<div id="finalRes"></div>
+
+<div id="extraBox" style="display:none;">
+<img src="crying.png">
+<textarea name="TeachMe" placeholder="Teach me how to love you..."></textarea>
+</div>
+
+<br><br>
+<button type="submit" onclick="finalFireworks()">Submit 💌</button>
+<p>Thank you for your time 🥰💕</p>
+</div>
+
+</form>
+
+<script>
+
+function fireConfetti(){
+  confetti({particleCount:150,spread:80,origin:{y:0.6}});
+}
+
+function heartRain(){
+  for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+  }
+}
+
+function fireworks(){
+  let duration=1500;
+  let end=Date.now()+duration;
+  (function frame(){
+    confetti({particleCount:5,angle:60,spread:55,origin:{x:0}});
+    confetti({particleCount:5,angle:120,spread:55,origin:{x:1}});
+    if(Date.now()<end){requestAnimationFrame(frame);}
+  })();
+}
+
+function next(n){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById("step"+n).classList.add("active");
+}
+
+function checkName(){
+let val=document.getElementById("name").value.trim();
+if(val==="Jijin"){
+fireConfetti(); heartRain();
+document.getElementById("res1").innerHTML='<img src="cutelaugh.gif"><p>So you knew that\'s me 😘</p>';
+setTimeout(()=>next(4),1500);
+}else{
+document.getElementById("res1").innerHTML='<img src="bonk.gif"><p class="shake">How dare you enter an incorrect name 😡</p>';
+}
+}
+
+function checkBday(){
+let val=document.getElementById("bday").value;
+if(val==="2001-04-24"){
+fireConfetti(); heartRain();
+document.getElementById("res2").innerHTML='<img src="thumb.gif"><p>Correct, but don\'t forget to wish him 😉</p>';
+setTimeout(()=>next(5),1500);
+}else{
+document.getElementById("res2").innerHTML='<img src="stick.gif"><p>I didn\'t expect this from you 😏</p>';
+}
+}
+
+function checkPlace(){
+let val=document.getElementById("place").value.trim().toLowerCase();
+if(val==="varkala"){
+fireConfetti(); heartRain();
+document.getElementById("res3").innerHTML='<img src="clap.gif"><p>Easy peasy huh 👏</p>';
+document.getElementById("dateSection").style.display="block";
+}else{
+document.getElementById("res3").innerHTML='<p>Wrong answer 😌</p>';
+}
+}
+
+function checkFirstDate(){
+let val=document.getElementById("firstdate").value;
+if(val==="2025-09-03"){
+fireConfetti(); heartRain();
+document.getElementById("resDate").innerHTML='<img src="good.gif"><p>Awww you remember chooo cuteee ❤️</p>';
+setTimeout(()=>next(6),2000);
+}else{
+document.getElementById("resDate").innerHTML='<img src="bad.gif"><p>Hmm I know I didn\'t mattered 😢</p>';
+}
+}
+
+function yesLove(){
+fireConfetti(); heartRain();
+document.getElementById("finalRes").innerHTML="No mattum click panniruntha unna etha vechu adichirupenn enake theriyathu 😌";
+}
+
+function noLove(){
+document.getElementById("finalRes").innerHTML="Suttumanik ennee vendee 😢";
+document.getElementById("extraBox").style.display="block";
+}
+
+function finalFireworks(){
+fireworks(); heartRain();
+}
+
+</script>
+
+</body>
+</html>
